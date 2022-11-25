@@ -1,6 +1,7 @@
-import { addTodo, changeTodo, removeAllTodos } from "./functions";
-import { Todo } from "./models/Todo";
-
+import { addTodo, changeTodo, removeAllTodos } from "../ts/functions";
+import { Todo } from "../ts/models/Todo";
+ 
+describe("addTodo", () => {
 test("should add todo", () => {
     //Arrange
     let todoText:string = "Vakna";
@@ -22,7 +23,9 @@ test("should not add short todo", () => {
         //Assert
         expect(todos.length).toBe(0);
 });
+});
 
+describe("changeTodo", () => {
 test("should change todo", () => {
     //Arrange
     let todo = new Todo("Äta", false);
@@ -35,14 +38,21 @@ test("should change todo", () => {
     //Assert
     expect(todo.done).toBe(true);
 });
+});
 
+describe("removeAllTodos", () => {
 test("should remove all todos", () => {
     //Arrange
     let todos: Todo[] = [];
-    let newTodo = new Todo("Arbeta", true);
-    todos.push(newTodo);
+    let newTodoFirst = new Todo("Arbeta", true);
+    let newTodoSecond = new Todo("Träna", false);
+    let newTodoThird = new Todo("Kolla på TV", true);
+    todos.push(newTodoFirst);
+    todos.push(newTodoSecond);
+    todos.push(newTodoThird);
     //Act
     removeAllTodos(todos)
     //Assert
     expect(todos.length).toBe(0);
+});
 });
