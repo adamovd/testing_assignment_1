@@ -34,17 +34,6 @@ test("should run function createNewTodo on click", () => {
 });
 });
 
-// test("should create html", () => {
-//     //Arrange
-//     let spy =jest.spyOn(mainfunctions, "createHtml").mockReturnValue();
-//     let todoText: string = "Laga mat";
-//     let todos: Todo[] = [new Todo("Äta", false)];
-//     //Act
-//     mainfunctions.createNewTodo(todoText,todos);
-//     //Assert
-//     expect(spy).toBeCalledTimes(1);
-// });
-
 describe("displayError", () => {
 test("should add HTML to div", () => {
     //Arrange
@@ -57,16 +46,49 @@ test("should add HTML to div", () => {
     expect((document.getElementById("error")as HTMLDivElement).innerHTML).toBe("Error");
 });
 
-test("should not add HTML to div", () => {
+test("should add class to div", () => {
+   //Arrange
+   document.body.innerHTML = `<div id="error" class="error"></div>`;
+   let error: string = "Error";
+   let show: boolean = true;
+   //Act
+   mainfunctions.displayError(error, show)
+   //Assert
+   expect((document.getElementById("error")as HTMLDivElement).classList.length).toBe(2);
+});
+
+test("should not add class to div", () => {
     //Arrange
     document.body.innerHTML = `<div id="error" class="error"></div>`;
-    let errorContainer: HTMLDivElement = document.getElementById("error") as HTMLDivElement;
-    errorContainer.classList.add("show");
     let error: string = "Error";
     let show: boolean = false;
     //Act
-    mainfunctions.displayError(error, show);
+    mainfunctions.displayError(error, show)
     //Assert
-    expect(errorContainer.innerHTML).toBe("");
+    expect((document.getElementById("error")as HTMLDivElement).classList.length).toBe(1);
+ });
+});
+
+describe("createNewTodo", () => {
+test("should create html", () => {
+     //Arrange
+     let spy =jest.spyOn(mainfunctions, "createHtml").mockReturnValue();
+     let todoText: string = "Äta mat";
+     let todos: Todo[] = [new Todo("Laga mat", false)];
+     //Act
+     mainfunctions.createNewTodo(todoText,todos);
+     //Assert
+     expect(spy).toBeCalledTimes(1);
+ });
+
+test("should not create html", () => {
+    //Arrange
+    let spy =jest.spyOn(mainfunctions, "displayError").mockReturnValue();
+    let todoText: string = "Ät";
+    let todos: Todo[] = [new Todo("Laga mat", false)];
+    //Act
+    mainfunctions.createNewTodo(todoText,todos);
+    //Assert
+    expect(spy).toBeCalledTimes(1);
 });
 });
