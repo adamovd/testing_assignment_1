@@ -34,6 +34,7 @@ export function createNewTodo(todoText: string, todos: Todo[]) {
   }
 }
 
+
 export function createHtml(todos: Todo[]) {
   localStorage.setItem("todos", JSON.stringify(todos));
 
@@ -41,7 +42,7 @@ export function createHtml(todos: Todo[]) {
     "todos"
   ) as HTMLUListElement;
 
- todosContainer.innerHTML = "";
+    //  todosContainer.innerHTML = "";
 
   for (let i = 0; i < todos.length; i++) {
     let li: HTMLLIElement = document.createElement("li");
@@ -56,13 +57,13 @@ export function createHtml(todos: Todo[]) {
       toggleTodo(todos[i]);
     });
 
-    todosContainer.appendChild(li);
+    //  todosContainer.appendChild(li);
   }
 }
 
-function toggleTodo(todo: Todo) {
+export function toggleTodo(todo: Todo) {
   changeTodo(todo);
-  createHtml(todos);
+  exports.createHtml(todos);
 }
 
 export function displayError(error: string, show: boolean) {
@@ -80,10 +81,12 @@ export function displayError(error: string, show: boolean) {
 }
 
 export function clearTodos(todos: Todo[]) {
-  exports.removeAllTodos(todos);
+  removeAllTodos(todos);
   exports.createHtml(todos);
 }
 
+
+
 init();
-// createHtml(todos);
+createHtml(todos);
 
