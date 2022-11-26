@@ -46,7 +46,7 @@ export function createHtml(todos: Todo[]) {
     "todos"
   ) as HTMLUListElement;
 
-      // todosContainer.innerHTML = "";
+  // todosContainer.innerHTML = "";
 
   for (let i = 0; i < todos.length; i++) {
     let li: HTMLLIElement = document.createElement("li");
@@ -61,7 +61,7 @@ export function createHtml(todos: Todo[]) {
       toggleTodo(todos[i]);
     });
 
-      // todosContainer.appendChild(li);
+      todosContainer.appendChild(li);
   }
 }
 

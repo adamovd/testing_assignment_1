@@ -5,46 +5,29 @@ import { Todo } from "../ts/models/Todo";
 import * as mainfunctions from "./../ts/main";
 import * as functions from "./../ts/functions";
 
-let todos: Todo [] = [new Todo("Laga mat", false), new Todo("Äta mat", false)];
-
-
 describe("createHTML", () => {
-    test("should fill localStorage", () => {
-        //Arrange
-        let todos: Todo[] = [new Todo("Laga mat", false), new Todo("Äta mat", false)];
-        localStorage.setItem("todos", JSON.stringify(todos));
-        //Act
-        mainfunctions.createHtml(todos);
-        let todoLS: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
-        //Assert
-        expect(todos.length).toBe(todoLS?.length);
-    });
-
-    // test("should empty todosContainer", () => {
-    //     //Assert
-    //     let todos: Todo[] = [];
-    //     document.body.innerHTML = `<ul id="todos" class="todo"><li>Äta</li></ul>`;
-    //     let todosContainer: HTMLUListElement = document.getElementById(
-    //         "todos"
-    //       ) as HTMLUListElement;
-    //     //Act
-    //     mainfunctions.createHtml(todos);
-    //     //Arrange
-    //     expect(todosContainer.innerHTML).toBe("");
-    // });
 
     test("should create HTML elements", () => {
         //Arrange
-        let todos: Todo[] = [new Todo("Laga mat", false), new Todo("Äta mat", false)];
+        let todos: Todo[] = [new Todo("Laga mat", false)];
         document.body.innerHTML = `<ul id="todos" class="todo"></ul>`
-        let todosContainer: HTMLUListElement = document.getElementById(
-            "todos"
-          ) as HTMLUListElement;
         //Act
         mainfunctions.createHtml(todos);
-
         //Assert
-        expect(todosContainer.innerHTML).toBe("");
+        expect(document.querySelector("li")?.innerHTML).toBe("Laga mat");
+    });
+
+    test("should fill localStorage", () => {
+        //Arrange
+        let todos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
+        todos.splice(0, todos.length);
+        //Act
+        todos.push(new Todo("Spela spel", false));
+        mainfunctions.createHtml(todos);
+        console.log(todos);
+        
+        //Assert
+        expect(todos.length).toBe(1);
     });
 });
 
