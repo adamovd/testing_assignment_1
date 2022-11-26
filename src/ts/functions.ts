@@ -19,3 +19,8 @@ export function removeAllTodos(todos: Todo[]) {
   todos.splice(0, todos.length);
 }
 
+export function sortTodos(todos: Todo[]) {
+  todos.sort((a, b) => (a.text > b.text) ? 1 : -1);
+}
+
+

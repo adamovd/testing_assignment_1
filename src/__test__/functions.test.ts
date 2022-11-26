@@ -1,4 +1,4 @@
-import { addTodo, changeTodo, removeAllTodos } from "../ts/functions";
+import * as functions from "./../ts/functions";
 import { Todo } from "../ts/models/Todo";
  
 describe("addTodo", () => {
@@ -7,7 +7,7 @@ test("should add todo", () => {
     let todoText:string = "Vakna";
     let todos: Todo[] = [];
     //Act
-    addTodo(todoText, todos);
+    functions.addTodo(todoText, todos);
     //Assert
     expect(todos.length).toBe(1);
 });
@@ -17,7 +17,7 @@ test("should not add short todo", () => {
         let todoText:string = "Ej";
         let todos: Todo[] = [];
         //Act
-        addTodo(todoText, todos);
+        functions.addTodo(todoText, todos);
         console.log(todos);
         
         //Assert
@@ -32,7 +32,7 @@ test("should change todo", () => {
     console.log(todo);
     
     //Act
-    changeTodo(todo);
+    functions.changeTodo(todo);
     console.log(todo);
     
     //Assert
@@ -51,8 +51,23 @@ test("should remove all todos", () => {
     todos.push(newTodoSecond);
     todos.push(newTodoThird);
     //Act
-    removeAllTodos(todos)
+    functions.removeAllTodos(todos)
     //Assert
     expect(todos.length).toBe(0);
 });
+});
+
+describe("sortTodos", () => {
+    test("should sort list alphabetically", () => {
+        //Arrange
+        let todos: Todo[] = [new Todo("Örjan", false), new Todo("Adam", false), new Todo("Lisbeth", false)];
+        console.log(todos);
+        //Act
+        functions.sortTodos(todos);
+        console.log(todos);
+        //Assert
+        expect(todos[0]).toEqual({"done": false, "text": "Adam"});
+        expect(todos[1]).toEqual({"done": false, "text": "Lisbeth"});
+        expect(todos[2]).toEqual({"done": false, "text": "Örjan"});
+    });
 });

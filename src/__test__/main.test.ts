@@ -42,7 +42,6 @@ describe("createHTML", () => {
           ) as HTMLUListElement;
         //Act
         mainfunctions.createHtml(todos);
-        console.log(mainfunctions.createHtml.prototype);
 
         //Assert
         expect(todosContainer.innerHTML).toBe("");
@@ -126,17 +125,26 @@ describe("clearTodos", () => {
         //Arrange
         let spy = jest.spyOn(functions, "removeAllTodos").mockReturnValue();
         let todos: Todo[] = [new Todo("Laga mat", false)];
-
-
         //Act
         mainfunctions.clearTodos(todos);
-
-
         //Assert
         expect(spy).toHaveBeenCalled();
     });
 
 });
+
+describe("sort", () => {
+    test("should run function sortTodos", () => {
+        //Arrange
+        let spy = jest.spyOn(functions, "sortTodos").mockReturnValue();
+        let todos: Todo[] = [new Todo("Laga mat", false), new Todo("Diska", false)];
+        //Act
+        mainfunctions.sort(todos);
+        //Assert
+        expect(spy).toHaveBeenCalled();
+    });
+});
+
 
 describe("init", () => {
     test("should run function clearTodos on click", () => {
@@ -149,6 +157,17 @@ describe("init", () => {
         //Assert
         expect(spy).toHaveBeenCalled();
     });
+
+     test("should run sort on click", () => {
+         //Arrange
+         let spy = jest.spyOn(mainfunctions, "sort").mockReturnValue();
+         document.body.innerHTML = `<button type="button" id="sortTodos">Sortera lista</button>`;
+         mainfunctions.init();
+         //Act
+         document.getElementById("sortTodos")?.click();
+         //Assert
+         expect(spy).toHaveBeenCalled();
+     });
 
     test("should run function createNewTodo on click", () => {
         //Arrange
