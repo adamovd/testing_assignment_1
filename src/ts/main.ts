@@ -46,7 +46,7 @@ export function createHtml(todos: Todo[]) {
     "todos"
   ) as HTMLUListElement;
 
-  // todosContainer.innerHTML = "";
+    todosContainer.innerHTML = "";
 
   for (let i = 0; i < todos.length; i++) {
     let li: HTMLLIElement = document.createElement("li");
@@ -58,7 +58,7 @@ export function createHtml(todos: Todo[]) {
     li.classList.add("todo__text");
     li.innerHTML = todos[i].text;
     li.addEventListener("click", () => {
-      toggleTodo(todos[i]);
+      exports.toggleTodo(todos[i]);
     });
 
       todosContainer.appendChild(li);
@@ -94,8 +94,6 @@ export function sort(todos: Todo[]) {
   exports.createHtml(todos);
 }
 
-
-
 init();
-createHtml(todos);
+// createHtml(todos);
 
